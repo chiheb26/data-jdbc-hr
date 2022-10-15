@@ -2,6 +2,7 @@ package com.global.hr.repository;
 
 import java.util.List;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +20,7 @@ public interface EmployeeRepo extends CrudRepository<Employee,Long>{
 	List<Employee> findByNameAndSalary(@Param("empName") String name,
 			@Param("empSalary") Double salary);
 	
+	@Modifying
+	@Query("update employees set salary= :salary where id= :id")
+	int updateSalary(Long id , Double salary);
 }
